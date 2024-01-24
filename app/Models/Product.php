@@ -8,24 +8,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 
-class Category extends Model
+class Product extends Model
 {
     use HasFactory, SoftDeletes, HasTranslations;
 
     protected $fillable = [
-        'name',
+        'title',
         'slug',
-        'description'
+        'handle',
+        'price',
+        'attachement'
     ];
 
     protected array $translatable = [
-        'name',
-        'description'
+        'title',
+        'handle'
     ];
 
     protected $cast = [
-        'name' => 'array',
-        'description' => 'array'
+        'title' => 'array',
+        'handle' => 'array',
+        'price' => 'double',
+        'slug' => 'string',
     ];
 
     protected static function boot()
@@ -37,7 +41,7 @@ class Category extends Model
         });
     }
 
-    public function products() {
-        return $this->hasMany(Product::class);
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
 }
