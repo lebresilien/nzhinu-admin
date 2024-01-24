@@ -49,6 +49,8 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name')->sortable(),
                 TextColumn::make('description'),
+                TextColumn::make('Products')
+                ->getStateUsing(fn ( $record) => $record->products()->count())
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

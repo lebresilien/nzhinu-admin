@@ -17,6 +17,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Concerns\Translatable;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Filament\Forms\Components\Select;
 
 class ProductResource extends Resource
 {
@@ -44,7 +46,10 @@ class ProductResource extends Resource
                 ->numeric()
                 ->required(),
                 MarkdownEditor::make('handle'),
-                FileUpload::make('attachement')->preserveFilenames()->storeFileNamesIn('attachement')
+                FileUpload::make('attachment'),
+                Select::make('category_id')
+                ->relationship('category', 'name')
+                ->required(),
             ]);
     }
 
@@ -52,8 +57,9 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->sortable(),
+                TextColumn::make('title')->sortable()->searchable(),
                 TextColumn::make('price'),
+                TextColumn::make('category.name')->searchable()
             ])
             ->filters([
                 //

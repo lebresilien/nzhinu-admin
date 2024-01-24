@@ -17,7 +17,8 @@ class Product extends Model
         'slug',
         'handle',
         'price',
-        'attachement'
+        'attachment',
+        'category_id'
     ];
 
     protected array $translatable = [
@@ -30,6 +31,8 @@ class Product extends Model
         'handle' => 'array',
         'price' => 'double',
         'slug' => 'string',
+        'attachment' => 'string',
+        'category' => 'number',
     ];
 
     protected static function boot()
@@ -37,7 +40,7 @@ class Product extends Model
         parent::boot();
 
         static::saving(function ($model) {
-            $model->slug = Str::slug($model->name);
+            $model->slug = Str::slug($model->title);
         });
     }
 
