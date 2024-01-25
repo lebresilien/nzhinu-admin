@@ -46,19 +46,6 @@ class ProductRepository extends BaseRepository
                 })
             ]);
         }
-
-        return $data;
-        /*         return $category->products->map(function (Product $product) use ($category) {
-                    return [
-                        "category_name" => $category->name,
-                        "title" => $product->title,
-                        "slug" => $product->slug,
-                        "price" => $product->price,
-                        "handle" => $product->product,
-                        "created_at" => $product->created_at,
-                    ];
-                });
-        }); */
     }
 
 }
