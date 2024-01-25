@@ -28,11 +28,12 @@ class Product extends Model
 
     protected $cast = [
         'title' => 'array',
-        'handle' => 'array',
+        'handle' => 'json',
         'price' => 'double',
         'slug' => 'string',
         'attachment' => 'string',
         'category' => 'number',
+        'created_at' => 'date',
     ];
 
     protected static function boot()
