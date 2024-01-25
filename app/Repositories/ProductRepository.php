@@ -46,6 +46,8 @@ class ProductRepository extends BaseRepository
                 })
             ]);
         }
+
+        return $data;
     }
 
 }
