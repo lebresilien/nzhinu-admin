@@ -11,7 +11,7 @@ use App;
 class ProductRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        
+        'slug'
     ];
 
     public function getFieldsSearchable(): array
@@ -24,7 +24,7 @@ class ProductRepository extends BaseRepository
         return Product::class;
     }
 
-    public function listProducts($lang)  {
+    public function listProducts($lang) {
 
         $data = collect([]);
 
@@ -36,18 +36,23 @@ class ProductRepository extends BaseRepository
                 'slug' => $category->slug,
                 'products' => $category->products->map(function ($product) {
                     return [
+                        "id" => $product->id,
                         "title" => $product->title,
                         "slug" => $product->slug,
                         "price" => $product->price,
                         "handle" => $product->handle,
                         "created_at" => $product->created_at,
-                        "thumbnail" => $product->attachment
+                        "thumbnail" => env('APP_URL').'/storage/'.$product->attachment
                     ];
                 })
             ]);
         }
 
         return $data;
+    }
+
+    public function category($slug) {
+        App::setLocale($lang);
     }
 
 }
