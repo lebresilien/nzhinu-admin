@@ -25,14 +25,14 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
-    public function categories($slug, $lang) {
+    public function categories($lang, $slug) {
 
         App::setLocale($lang);
-
+        
         $category = $this->categoryRepository->all(["slug" => $slug])->first();
 
         return response()->json([
-            "categories" => $category->name,
+            "name" => $category->name,
             "products" => $category->products->map(function ($product) {
                 return [
                     "id" => $product->id,
