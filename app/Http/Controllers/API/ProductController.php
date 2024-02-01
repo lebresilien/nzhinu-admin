@@ -45,6 +45,22 @@ class ProductController extends Controller
                 ];
             })
         ]);
+    }
 
+    public function product($lang, $slug) {
+
+        App::setLocale($lang);
+        
+        $product = $this->productRepository->all(["slug" => $slug])->first();
+
+        return response()->json([
+            "id" => $product->id,
+            "title" => $product->title,
+            "slug" => $product->slug,
+            "price" => $product->price,
+            "handle" => $product->handle,
+            "created_at" => $product->created_at,
+            "thumbnail" => env('APP_URL').'/storage/'.$product->attachment
+        ]);
     }
 }
