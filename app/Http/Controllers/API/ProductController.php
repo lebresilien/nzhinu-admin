@@ -60,7 +60,11 @@ class ProductController extends Controller
             "price" => $product->price,
             "handle" => $product->handle,
             "created_at" => $product->created_at,
-            "thumbnail" => env('APP_URL').'/storage/'.$product->attachment
+            "thumbnail" => env('APP_URL').'/storage/'.$product->attachment,
+            "category" => [
+                "name" => $product->category->name,
+                "slug" => $product->category->slug
+            ]
         ]);
     }
 }
