@@ -40,7 +40,7 @@ class OrderMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'views.mails.orders',
+            view: 'mails.orders',
             with: [
                 'email' => $this->data['email'],
             ]
