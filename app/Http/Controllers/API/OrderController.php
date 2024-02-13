@@ -10,6 +10,7 @@ use App\Http\Requests\CreateOrderRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderMailer;
 use Illuminate\Support\Facades\DB;
+use App;
 
 class OrderController extends Controller
 {
@@ -40,6 +41,8 @@ class OrderController extends Controller
 
         $user = $this->userRepository->searchByEmail($input['email']);
         
+        App::setLocale($input['lang']);
+
         $data = DB::transaction(function () use ($user, $input) {
             if(!$user) {
                 $user = $this->userRepository->create([

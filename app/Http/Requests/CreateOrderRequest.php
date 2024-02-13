@@ -28,6 +28,7 @@ class CreateOrderRequest extends FormRequest
             'address' => 'required|string|bail',
             'city' => 'required|string|bail',
             'phone' => 'required|string|bail',
+            'lang' => 'required|string|bail',
         ];
     }
 }
