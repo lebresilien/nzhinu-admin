@@ -24,7 +24,10 @@ class CreateOrderRequest extends FormRequest
         return [
             'price' => 'required|numeric|bail',
             'products' => 'required|array|bail',
-            'products.*' => 'required|exists:products,id',
+            'products.*' => 'required|exists:products,id|bail',
+            'address' => 'required|string|bail',
+            'city' => 'required|string|bail',
+            'phone' => 'required|string|bail',
         ];
     }
 }
