@@ -50,6 +50,6 @@ class Product extends Model
     }
 
     public function orders() {
-        return $this->BelongsToMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

@@ -5,15 +5,22 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\OrderRepository;
+use App\Repositories\UserRepository;
+use App\Http\Requests\CreateOrderRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderMailer;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     /** @var OrderRepository */
     private $orderRepository;
+    private $userRepository;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(OrderRepository $orderRepository, UserRepository $userRepository)
     {
         $this->orderRepository = $orderRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -27,9 +34,32 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateOrderRequest $request)
     {
-        //
+        $input = $request->all();
+
+        $user = $this->userRepository->searchByEmail($input['email']);
+        
+        if(!$user) {
+            $user = $this->userRepository->create([
+                'name' => $input['name'],
+                'surname' => $input['surname'],
+                'email' => $input['email'],
+                'password' => '123456780',
+                'phone' => $input['phone'],
+                'city' => $input['city'],
+                'address' => $input['address'],
+            ]);
+        }
+        
+        $order = $this->orderRepository->create([
+            'price' => $input['price'],
+            'user_id' => $user->id
+        ])->products()->attach($input['products']);
+
+        Mail::to($input['email'])->send(new OrderMailer($input));
+
+        return response()->json($order);
     }
 
     /**
