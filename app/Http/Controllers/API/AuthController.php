@@ -31,8 +31,8 @@ class AuthController extends Controller
         }
      
         return [
-            'user' => $user,
-            'token' => $user->createToken('Laravel api')->plainTextToken
+            'userData' => $user,
+            'userToken' => $user->createToken('Laravel api')->plainTextToken
         ];
     }
 
