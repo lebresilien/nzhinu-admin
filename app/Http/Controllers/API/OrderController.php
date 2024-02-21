@@ -38,7 +38,7 @@ class OrderController extends Controller
     public function store(CreateOrderRequest $request)
     {
         $input = $request->all();
-
+        
         $user = $this->userRepository->searchByEmail($input['email']);
         
         App::setLocale($input['lang']);

@@ -22,13 +22,13 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => 'required|numeric|bail',
-            'products' => 'required|array|bail',
-            'products.*' => 'required|exists:products,id|bail',
-            'address' => 'required|string|bail',
-            'city' => 'required|string|bail',
-            'phone' => 'required|string|bail',
-            'lang' => 'required|string|bail',
+            'price' => 'required|numeric',
+            'products' => 'required|array',
+            'products.*' => 'bail|required|exists:products,id',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'phone' => 'required|string',
+            'lang' => 'required|string',
         ];
     }
 }
