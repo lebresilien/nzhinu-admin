@@ -17,6 +17,8 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        App::setLocale($request->lang);
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -26,7 +28,7 @@ class AuthController extends Controller
      
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => [__('messages.auth.incorrect_credentials')],
             ]);
         }
      
