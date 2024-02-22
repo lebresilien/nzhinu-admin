@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-
+use App;
 
 class AuthController extends Controller
 {

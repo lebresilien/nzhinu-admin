@@ -40,8 +40,6 @@ class OrderController extends Controller
         $input = $request->all();
         
         $user = $this->userRepository->searchByEmail($input['email']);
-        
-        App::setLocale($input['lang']);
 
         $data = DB::transaction(function () use ($user, $input) {
             if(!$user) {
